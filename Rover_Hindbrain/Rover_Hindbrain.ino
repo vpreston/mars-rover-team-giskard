@@ -47,23 +47,23 @@ char readbuffer[buffer_size];
 int led_pin = 0;   //USER LED on the ArbotiX Robocontroller, the blinking light
 int ESTOP_pin = 23;     //manual switch on the model...stops all servos
 int blink_pin = 1;    //running LED
-int color_pin = 17;  //powering the color sensor
-int bump_pin_1 = 18; //bump pin
-int bump_pin_2 = 19; //bump pin
+int color_pin = 4;  //powering the color sensor
+int bump_pin_1 = 2; //bump pin
+int bump_pin_2 = 3; //bump pin
 //int encoder_pin = 23;
 //******************MAPPING OF ANALOG INPUT PINS******************************
-int bat_pin = 1;   //Lipo battery voltage
-int ir_pin_1 = 2;    //Sharp IR distance device
-int ir_pin_2 = 3;
+//int bat_pin = 1;   //Lipo battery voltage
+int ir_pin_1 = 0;    //Sharp IR distance device
+int ir_pin_2 = 1;
 //int so_pin = 3;  //XL MaxSonar device
-int red_pin = 7;
-int green_pin = 6;
-int blue_pin = 5;
+int red_pin = 2;
+int green_pin = 3;
+int blue_pin = 4;
 //******************MAPPING OF RC SERVO DEVICES*****************************
-int sm_pin = 3;  //starboard motor speed
-int pm_pin = 4;  //port motor speed
-int rr_pin = 14;  //right rudder position
-int lr_pin = 15;  //left rudder position
+int sm_pin = 20;  //starboard motor speed
+int pm_pin =21;  //port motor speed
+int rr_pin = 18;  //right rudder position
+int lr_pin = 19;  //left rudder position
 //********************MAPPING OF DYNAMIXEL SERVO DEVICES**********************
 int cp_num = 1;  //the camera panning servo number
 //****************************************************************************
