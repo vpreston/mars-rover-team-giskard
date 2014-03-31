@@ -1,6 +1,10 @@
 //*****MARS ROVER************
 
-/*This is hindbrain code for ENGR3392 Robotics II Mars Rover Software Phase Project
+/*This is hindbrain code for ENGR3392 Robotics II Mars Rover Project
+
+ACTION ITEMS
+Add obstacle avoidance to the hindbrain?
+Add accelerometer data and parsing
 */  
 //***************************************************************************
 
@@ -35,6 +39,9 @@ float color_power;
 float red_volt;
 float green_volt;
 float blue_volt;
+float x_volt;
+float y_volt;
+float z_volt;
 boolean bump_mode_1;
 boolean bump_mode_2;
 //float encoder_value;
@@ -50,6 +57,7 @@ int blink_pin = 1;    //running LED
 int color_pin = 4;  //powering the color sensor
 int bump_pin_1 = 2; //bump pin
 int bump_pin_2 = 3; //bump pin
+int accel_pin = 5;
 //int encoder_pin = 23;
 //******************MAPPING OF ANALOG INPUT PINS******************************
 //int bat_pin = 1;   //Lipo battery voltage
@@ -59,6 +67,9 @@ int ir_pin_2 = 1;
 int red_pin = 2;
 int green_pin = 3;
 int blue_pin = 4;
+int x_pin = 5;
+int y_pin = 6;
+int z_pin = 7;
 //******************MAPPING OF RC SERVO DEVICES*****************************
 int sm_pin = 20;  //starboard motor speed
 int pm_pin =21;  //port motor speed
@@ -102,7 +113,10 @@ void setup()
   pinMode(led_pin, OUTPUT);  // initialize the digital pin as an output for onboard LED
   pinMode(color_pin, OUTPUT); // initialize color sensors
   pinMode(blink_pin, OUTPUT);  //output for remote blinking LED
+  pinMode(accel_pin, OUTPUT);
   digitalWrite(color_pin, HIGH);
+  digitalWrite(accel_pin, HIGH);
+  
   //pinMode(encoder_pin, INPUT);
   
   
@@ -205,6 +219,12 @@ void Send_Return_String(int numread)
     Serial.print(bump_mode_1,3);
     Serial.print('u');
     Serial.print(bump_mode_2,3);
+    Serial.print('x');
+    Serial.print(x_volt, 3);
+    Serial.print('y');
+    Serial.print(y_volt, 3);
+    Serial.print('z');
+    Serial.print(z_volt, 3);
     //Serial.print('e');
     //Serial.print(encoder_value,3);
     Serial.write(0x0A);  //a newline, \n
@@ -276,6 +296,10 @@ void Read_sensors(void)
   
   bump_mode_1 = digitalRead(bump_pin_1);
   bump_mode_2 = digitalRead(bump_pin_2);
+  
+  x_volt = analogRead(x_pin);
+  y_volt = analogRead(y_pin);
+  z_volt = analogRead(z_pin);
   
   //encoder_value = digitalRead(encoder_pin);
 
