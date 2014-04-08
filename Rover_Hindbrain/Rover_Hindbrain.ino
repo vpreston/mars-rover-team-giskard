@@ -3,8 +3,12 @@
 /*This is hindbrain code for ENGR3392 Robotics II Mars Rover Project
 
 ACTION ITEMS
-Add obstacle avoidance to the hindbrain?
-Add accelerometer data and parsing
+Add accelerometer data and parsing, will include:
+- Calibration spin
+- Heading calculation
+- Feeding heading to PC
+
+Obstacle avoidance will stay on the midbrain unless advantageous otherwise.
 */  
 //***************************************************************************
 
