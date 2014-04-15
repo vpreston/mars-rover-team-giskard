@@ -46,6 +46,13 @@ float blue_volt;
 float x_volt;
 float y_volt;
 float z_volt;
+int rot_number = 5; //number of rotations to calibrate the accelerometer
+int xRawMin = 512;
+int xRawMax = 512;
+int yRawMin = 512;
+int yRawMax = 512;
+int zRawMin = 512;
+int zRawMax = 512;
 boolean bump_mode_1;
 boolean bump_mode_2;
 //float encoder_value;
@@ -140,6 +147,20 @@ void loop()
   //read the value of the ESTOP switch, value is LOW when button is pressed, otherwise HIGH
   estop_val = digitalRead(ESTOP_pin);
 
+
+  // calibrate the accelerometer
+  for (int i = 0; i < 30000; i ++)
+  {
+    if (i < 29000)
+    {
+      Calibrate_Accelerometer()
+    }
+    else 
+    {
+      starboard_motor.writeMicroseconds(1500);
+      port_motor.writeMicroseconds(1500);
+    }
+  }
   
   //Read the sensor values
   Read_sensors();
@@ -414,6 +435,84 @@ void Move_the_rudders(void)
   }
   
 }//end Move_the_rudders
+//*************Calibrate the Accelerometer****************
+void Calibrate_the_Accelerometer(void)
+{
+ if (estop_Val == LOW || h_code == ESTOP)
+  {
+    starboard_motor.writeMicroseconds(1500);
+    port_motor.writeMicroseconds(1500);
+  }
+ else
+  { 
+    starboard_motor.writeMicroseconds(1580);
+    port_motor.writeMicroseconds(1580);
+  }
+  int xRaw = ReadAxis(xInput);
+  int yRaw = ReadAxis(yInput);
+  int zRaw = ReadAxis(zInput);
+  AutoCalibrate(xRaw, yRaw, zRaw);
+  long xScaled = map(xRaw, xRawMin, xRawMax, -1000, 1000);
+  long yScaled = map(yRaw, yRawMin, yRawMax, -1000, 1000);
+  long zscaled = map(zRaw, zRawMin, zRawMax, -1000, 1000);
+  float xAccel = xScaled/1000.0;
+  float yAccel = yScaled/1000.0;
+  float zAccel = zScaled/1000.0;
+}//end Calibrate_the_Accelerometer
+//************* Read Axis ********************************
+int ReadAxis(int axisPin)
+{
+  long reading = 0;
+  analogRead(axisPin);
+  delay(1);
+  
+  for (int i = 0; i < sample_size; i++)
+  {
+    reading += analogRead(axisPin);
+  }
+  return reading/rot_number;
+}
+//*************** Auto Calibrate ******************
+void AutoCalibrate(int xRaw, int yRaw, int zRaw)
+{
+  if (xRaw < xRawMin)
+  {
+    xRawMin = xRaw;
+  }
+  if (xRaw > xRawMax)
+  {
+    xRawMax = xRaw;
+  }
+  
+  if (yRaw < yRawMin)
+  {
+    yRawMin = yRaw;
+  }
+  if (yRaw > yRawMax)
+  {
+    yRawMax = yRaw;
+  }
 
+  if (zRaw < zRawMin)
+  {
+    zRawMin = zRaw;
+  }
+  if (zRaw > zRawMax)
+  {
+    zRawMax = zRaw;
+  }
+}
+//**************Calibrate Value for Accelerometer ********
+void Angle(int xVolt, int yVolt, int zVolt)
+{
+  float xRange = (xRawMax - xRawMin)/360;
+  float yRange = (yRawMax - yRawMin)/360;
+  float zRange = (zRawMax - zRawMin)/360;
+  
+  
+  
+  float heading = tan()
+  
+  
 //************* end of program****************************
 
