@@ -254,7 +254,7 @@ void Read_sensors(void)
 void Parse_command_string(void)
 {
   //the following converts the 4 char number values into integers
-  //the readbuffer is assumed to be $CS----P----R----L----C----H----'\n' 34 bytes
+  //the readbuffer is assumed to be $CS----P----R----L----H----'\n' 34 bytes
   char dummy[4];    
   
   //for starboard motor
@@ -290,10 +290,10 @@ void Parse_command_string(void)
   la_pos = atoi(dummy);
   
   //for status
-  dummy[0] = readbuffer[28];
-  dummy[1] = readbuffer[29];
-  dummy[2] = readbuffer[30];
-  dummy[3] = readbuffer[31];
+  dummy[0] = readbuffer[23];
+  dummy[1] = readbuffer[24];
+  dummy[2] = readbuffer[25];
+  dummy[3] = readbuffer[26];
   
   h_code = atoi(dummy);
 
