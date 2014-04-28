@@ -50,11 +50,11 @@ int color_pin = 4;  //powering the color sensor
 int bump_pin_1 = 2; //bump pin
 int bump_pin_2 = 3; //bump pin
 //******************MAPPING OF ANALOG INPUT PINS******************************
-int ir_pin_align = 0;    //Sharp IR distance device
+int ir_pin_align = 4;    //Sharp IR distance device
 int ir_pin_nav = 1;
-int red_pin = 2;
-int green_pin = 3;
-int blue_pin = 4;
+int red_pin = 5;
+int green_pin = 6;
+int blue_pin = 7;
 //******************MAPPING OF RC SERVO DEVICES*****************************
 int sm_pin = 20;  //starboard motor speed
 int pm_pin =21;  //port motor speed
