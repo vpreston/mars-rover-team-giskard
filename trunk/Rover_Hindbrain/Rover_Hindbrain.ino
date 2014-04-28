@@ -24,8 +24,8 @@ Servo left_arm;
 
 int sm_pos = 1500;    //starboard motor position 0 to 2500
 int pm_pos = 1500;    //port motor position
-int ra_pos = 500;    //right rudder position
-int la_pos = 2500;    //left rudder position
+int ra_pos = 1500;    //right rudder position
+int la_pos = 1500;    //left rudder position
 int h_code = 1;      //Status code from PC 1 == OK, 100 == ESTOP
 int ESTOP = 100;
 
