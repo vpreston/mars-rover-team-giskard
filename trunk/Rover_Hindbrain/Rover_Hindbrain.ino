@@ -36,8 +36,7 @@ float color_power;
 float red_volt;
 float green_volt;
 float blue_volt;
-boolean bump_mode_1;
-boolean bump_mode_2;
+boolean bump_mode;
 
 const int buffer_size = 40;
 char readbuffer[buffer_size];
@@ -47,8 +46,7 @@ int led_pin = 0;   //USER LED on the ArbotiX Robocontroller, the blinking light
 int ESTOP_pin = 23;     //manual switch on the model...stops all servos
 int blink_pin = 1;    //running LED
 int color_pin = 4;  //powering the color sensor
-int bump_pin_1 = 2; //bump pin
-int bump_pin_2 = 3; //bump pin
+int bump_pin = 3; //bump pin
 //******************MAPPING OF ANALOG INPUT PINS******************************
 int ir_pin_align = 4;    //Sharp IR distance device
 int ir_pin_nav = 1;
@@ -83,10 +81,9 @@ void setup()
   //setup input pins
   pinMode(ESTOP_pin, INPUT);           // set pin to input
   digitalWrite(ESTOP_pin, HIGH);       // turn on pullup resistors, 20k resitor to 5VDC on input pin
-  pinMode(bump_pin_1, INPUT);
-  digitalWrite(bump_pin_1, HIGH);
-  pinMode(bump_pin_2, INPUT);
-  digitalWrite(bump_pin_2, HIGH);
+  pinMode(bump_pin, INPUT);
+  digitalWrite(bump_pin, HIGH);
+
   
   //setup output pins
   pinMode(led_pin, OUTPUT);  // initialize the digital pin as an output for onboard LED
@@ -169,10 +166,10 @@ void Send_Return_String(int numread)
     returnbuffer[2] = 0x49;  //I
     
     Serial.write(returnbuffer, 3);  //return the bytes read
-    Serial.print('i');
-    Serial.print(ir_volt_align, 3);  //sent the IR distance sensor
-    Serial.print('j');
-    Serial.print(ir_volt_nav, 3);  //sent the IR distance sensor
+//    Serial.print('i');
+//    Serial.print(ir_volt_align, 3);  //sent the IR distance sensor
+//    Serial.print('j');
+//    Serial.print(ir_volt_nav, 3);  //sent the IR distance sensor
     Serial.print('r');
     Serial.print(red_volt,3);
     Serial.print('g');
@@ -180,9 +177,7 @@ void Send_Return_String(int numread)
     Serial.print('b');
     Serial.print(blue_volt,3);
     Serial.print('t');
-    Serial.print(bump_mode_1,3);
-    Serial.print('u');
-    Serial.print(bump_mode_2,3);
+    Serial.print(bump_mode,3);
     Serial.write(0x0A);  //a newline, \n
   }
   
@@ -246,8 +241,7 @@ void Read_sensors(void)
   green_volt = analogRead(green_pin);
   blue_volt = analogRead(blue_pin);
   
-  bump_mode_1 = digitalRead(bump_pin_1);
-  bump_mode_2 = digitalRead(bump_pin_2);
+  bump_mode = digitalRead(bump_pin);
 
 }//end Read_sensors
 //********************************************************
